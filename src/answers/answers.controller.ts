@@ -1,15 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
 import { AnswersService } from "./answers.service";
-import { CreateAnswerDto } from "./dto/create-answer.dto";
 import { UpdateAnswerDto } from "./dto/update-answer.dto";
+import { AuthGuard } from "../auth/auth/auth.guard";
 
+@UseGuards(AuthGuard)
 @Controller("answers")
 export class AnswersController {
   constructor(private readonly answersService: AnswersService) {
   }
 
   @Post()
-  create(@Body() createAnswerDto: CreateAnswerDto) {
+  create(@Body() createAnswerDto: any /*CreateAnswerDto*/) {
     return this.answersService.create(createAnswerDto);
   }
 

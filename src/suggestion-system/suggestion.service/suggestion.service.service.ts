@@ -6,4 +6,7 @@ import { Injectable } from "@nestjs/common";
 @Injectable()
 export class SuggestionServiceService {
   // For every user, generate a list of 3 tips.
+  generateBasicTips(){
+   //
+  }
 }
