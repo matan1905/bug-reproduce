@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AdminAuthGuard implements CanActivate {
   constructor(@Inject(AuthService) private authService: AuthService) {
   }
 
@@ -15,8 +15,8 @@ export class AuthGuard implements CanActivate {
     if(bearer) {
       try{
         request['auth'] = this.authService.verify(bearer);
-        // console.log( request['auth'] );
-        return true
+        return request['auth'].admin;
+
       }
       catch (e){}
     }

@@ -1,34 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
 import { TipsRequirementsService } from './tips-requirements.service';
 import { CreateTipsRequirementDto } from './dto/create-tips-requirement.dto';
 import { UpdateTipsRequirementDto } from './dto/update-tips-requirement.dto';
+import { AdminAuthGuard } from "../auth/auth/admin-auth.guard";
+import { TipsRequirement } from "./entities/tips-requirement.entity";
+import { Crud, CrudController } from "@nestjsx/crud";
 
+@UseGuards(AdminAuthGuard)
+@Crud({
+  model: {
+    type: TipsRequirement,
+  },
+})
 @Controller('tips-requirements')
-export class TipsRequirementsController {
-  constructor(private readonly tipsRequirementsService: TipsRequirementsService) {}
-
-  @Post()
-  create(@Body() createTipsRequirementDto: CreateTipsRequirementDto) {
-    return this.tipsRequirementsService.create(createTipsRequirementDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.tipsRequirementsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tipsRequirementsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTipsRequirementDto: UpdateTipsRequirementDto) {
-    return this.tipsRequirementsService.update(+id, updateTipsRequirementDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tipsRequirementsService.remove(+id);
-  }
+export class TipsRequirementsController implements CrudController<TipsRequirement>{
+  constructor(public service: TipsRequirementsService) {}
 }

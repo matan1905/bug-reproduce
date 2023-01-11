@@ -2,15 +2,19 @@ import { Injectable, UseGuards } from "@nestjs/common";
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { AuthGuard } from "../auth/auth/auth.guard";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Question } from "./entities/question.entity";
+import { Repository } from "typeorm";
+import { TypeOrmCrudService } from "@nestjsx/crud-typeorm";
 
-@UseGuards(AuthGuard)
 @Injectable()
-export class QuestionsService {
-  create(createQuestionDto: CreateQuestionDto) {
-    return 'This action adds a new question';
+export class QuestionsService  extends TypeOrmCrudService<Question>{
+  constructor(@InjectRepository(Question) repo) {
+    super(repo);
   }
 
   findAll() {
+    return this.repo.find()
     return {
       questions: [
         {
@@ -64,17 +68,5 @@ export class QuestionsService {
         // },
       ],
     };
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} question`;
-  }
-
-  update(id: number, updateQuestionDto: UpdateQuestionDto) {
-    return `This action updates a #${id} question`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} question`;
   }
 }

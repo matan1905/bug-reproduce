@@ -1,6 +1,7 @@
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { CommonEntity } from '../../../lib/CommonEntity';
 
-enum QuestionType {
+export enum QuestionType {
   MULTIPLE = 'MULTIPLE',
   // LOCATION='LOCATION',
   // DATE='DATE',
@@ -29,9 +30,15 @@ enum QuestionRepeat {
 }
 type QuestionParams = MultipleQuestionParams | ScalarQuestionParams;
 
+@Entity()
 export class Question extends CommonEntity {
-  text: string;
+  @Column()
+  text: string; // title
+
+  @Column({type:"simple-json"})
   params: QuestionParams;
+
+  @Column({type:'enum',enum:QuestionType, default:QuestionType.MULTIPLE})
   type: QuestionType;
-  repeat: QuestionRepeat;
+  //repeat: QuestionRepeat;
 }

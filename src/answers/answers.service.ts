@@ -1,26 +1,30 @@
 import { Injectable } from "@nestjs/common";
-import { CreateAnswerDto } from "./dto/create-answer.dto";
-import { UpdateAnswerDto } from "./dto/update-answer.dto";
+import { Answer, AnswerParams } from "./entities/answer.entity";
+import { Question } from "../questions/entities/question.entity";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class AnswersService {
-  create(createAnswerDto: CreateAnswerDto) {
-    return "This action adds a new answer";
+  constructor(@InjectRepository(Answer)
+              private repo: Repository<Answer>,
+              @InjectRepository(Question)
+              private questionRepo: Repository<Question>) {
   }
 
-  findAll() {
-    return `This action returns all answers`;
-  }
+  async create(questionId: string, userId: string, answerParams: AnswerParams) {
 
-  findOne(id: number) {
-    return `This action returns a #${id} answer`;
-  }
+    const question: Question = await this.questionRepo.findOne({
+      where: {
+        id: questionId
+      }
+    });
 
-  update(id: number, updateAnswerDto: UpdateAnswerDto) {
-    return `This action updates a #${id} answer`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} answer`;
+    const answer = new Answer();
+    answer.question = question;
+    answer.type = question.type;
+    answer.answer = answerParams;
+    answer.userId = userId;
+    return await this.repo.save(answer);
   }
 }

@@ -1,11 +1,18 @@
 import { Injectable } from "@nestjs/common";
 import { CreateUserTipDto } from "./dto/create-user-tip.dto";
 import { UpdateUserTipDto } from "./dto/update-user-tip.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { UserTip } from "./entities/user-tip.entity";
+import { TypeOrmCrudService } from "@nestjsx/crud-typeorm";
+import { Question } from "../questions/entities/question.entity";
+import { CrudRequest } from "@nestjsx/crud";
 
 @Injectable()
-export class UserTipsService {
-  create(createUserTipDto: CreateUserTipDto) {
-    return "This action adds a new userTip";
+export class UserTipsService  extends TypeOrmCrudService<UserTip>{
+
+  constructor(@InjectRepository(UserTip) repo: Repository<UserTip>,) {
+    super(repo)
   }
 
   findAll() {
@@ -50,15 +57,8 @@ We value your input and appreciate your help in improving Astroloid.`
   };
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} userTip`;
+  async like(data:{ like: boolean; tipId: string }) {
+    await this.repo.update({id:data.tipId},{isLiked:data.like})
   }
 
-  update(id: string, updateUserTipDto: UpdateUserTipDto) {
-    return `This action updates a #${id} userTip`;
-  }
-
-  remove(id: string) {
-    return `This action removes a #${id} userTip`;
-  }
 }

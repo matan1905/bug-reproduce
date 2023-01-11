@@ -1,12 +1,8 @@
-import { Question } from "../../questions/entities/question.entity";
+import { Question, QuestionType } from "../../questions/entities/question.entity";
 import { CommonEntity } from "../../../lib/CommonEntity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-enum ScalarOverflow {
-  PLUS,
-  NONE,
-  MINUS,
 
-}
 
 type MultipleQuestionAnswerParams = {
   answerIndex: number,
@@ -15,11 +11,24 @@ type MultipleQuestionAnswerParams = {
 
 type ScalarQuestionAnswerParams = {
   value: number;
-  overflow: ScalarOverflow;
 }
-type AnswerParams = ScalarQuestionAnswerParams | MultipleQuestionAnswerParams;
+export class AnswerParams {
+  scalar: ScalarQuestionAnswerParams;
+  multiple: MultipleQuestionAnswerParams;
 
+}
+
+@Entity()
 export class Answer extends CommonEntity {
+  @ManyToOne(()=>Question,{lazy:true})
   question: Question;
+
+  @Column({type:'enum',enum:QuestionType, default:QuestionType.MULTIPLE})
+  type: QuestionType;
+
+  @Column(type => AnswerParams)
   answer: AnswerParams;
+
+  @Column()
+  userId:string
 }

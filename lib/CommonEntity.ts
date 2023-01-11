@@ -1,6 +1,9 @@
-import { Column } from "typeorm";
+import { Column, CreateDateColumn, PrimaryGeneratedColumn } from "typeorm";
 
 export class CommonEntity {
-  @Column()
+  @PrimaryGeneratedColumn("uuid")
+  id : string;
+
+  @CreateDateColumn()
   createdAt: Date;
 }
