@@ -1,0 +1,2 @@
+INSERT INTO "user_tip" ("id", "createdAt", "isLiked", "tipId", "userId") VALUES ('cbb9c65c-0ce0-4d4b-90a0-ffe90b485681', '2023-01-09 21:31:16.481449', true, 'd71958b3-264c-445f-b3e7-2445683987ef', '414435d7-f655-4276-baa3-c4c96240553c');
+INSERT INTO "user_tip" ("id", "createdAt", "isLiked", "tipId", "userId") VALUES ('cbb2c65c-0ce0-4d4b-90a0-ffe90b485681', '2023-01-09 21:31:16.481449', true, 'd71958b3-264c-445f-b3e7-2445683987ef', '93c77d10-692f-4f24-84ae-60485cd68a4c');

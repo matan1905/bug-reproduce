@@ -1,0 +1,2 @@
+INSERT INTO "user" ("id", "createdAt", "identifier", "email", "isActive") VALUES ('414435d7-f655-4276-baa3-c4c96240553c', '2023-01-09 20:36:08.092031', '414435d7-f655-4276-baa3-c4c96240553c', 'a@a.a', true);
+INSERT INTO "user" ("id", "createdAt", "identifier", "email", "isActive") VALUES ('93c77d10-692f-4f24-84ae-60485cd68a4c', '2023-01-09 20:36:08.092031', '414435d7-f655-4276-baa3-c4c96240553c', 'a@a.a', true);
