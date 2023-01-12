@@ -45,7 +45,7 @@ export class UserTipsController implements CrudController<UserTip>{
     const  result= (await this.base.getManyBase(req))
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return { tips: result?.filter(tip=>tip.userId == req.parsed.authPersist.userId) };
+    return { tips: result};
   }
 
   @Put('like')

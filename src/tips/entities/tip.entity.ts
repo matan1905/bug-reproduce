@@ -1,5 +1,4 @@
 import { CommonEntity } from "../../../lib/CommonEntity";
-import { TipsRequirement } from "../../tips-requirements/entities/tips-requirement.entity";
 import { Column, Entity, OneToMany } from "typeorm";
 
 enum TipType {
@@ -16,6 +15,4 @@ export class Tip extends CommonEntity {
   type: TipType;
   @Column()
   content: string;
-  @OneToMany(()=>TipsRequirement,tipReq=>tipReq.tip ,{lazy:true})
-  requirements: TipsRequirement[];
 }

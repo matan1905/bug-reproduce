@@ -5,7 +5,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UserTip } from "./entities/user-tip.entity";
 import { TypeOrmCrudService } from "@nestjsx/crud-typeorm";
-import { Question } from "../questions/entities/question.entity";
 import { CrudRequest } from "@nestjsx/crud";
 
 @Injectable()
